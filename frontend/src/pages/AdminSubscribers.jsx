@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../config/api";
 
 export default function AdminSubscribers() {
   const [subscribers, setSubscribers] = useState([]);
@@ -12,7 +13,7 @@ export default function AdminSubscribers() {
     async function fetchSubscribers() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/subscribers",
+          `${API_URL}/api/subscribers`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -1,5 +1,5 @@
-
 import { useEffect, useState } from "react";
+import API_URL from "../config/api";
 
 const orderStatuses = [
   "pending",
@@ -32,7 +32,7 @@ export default function AdminOrders() {
 
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:4000/api/orders", {
+      const response = await fetch(`${API_URL}/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ export default function AdminOrders() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:4000/api/orders/${orderId}/status`,
+        `${API_URL}/api/orders/${orderId}/status`,
         {
           method: "PATCH",
           headers: {
@@ -104,7 +104,7 @@ export default function AdminOrders() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:4000/api/orders/${orderId}/proof-of-payment`,
+        `${API_URL}/api/orders/${orderId}/proof-of-payment`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -144,7 +144,7 @@ export default function AdminOrders() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:4000/api/orders/${orderId}/payment-status`,
+        `${API_URL}/api/orders/${orderId}/payment-status`,
         {
           method: "PATCH",
           headers: {
@@ -294,7 +294,6 @@ export default function AdminOrders() {
             </div>
           </div>
 
-          {/* DELIVERY DETAILS */}
           <div className="mt-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
             <h3 className="font-semibold">Delivery Information</h3>
 
@@ -336,7 +335,6 @@ export default function AdminOrders() {
             )}
           </div>
 
-          {/* PRODUCTS ORDERED */}
           <div className="mt-5 border-t border-white/10 pt-4">
             <h3 className="font-semibold">Products Ordered</h3>
 
@@ -363,7 +361,6 @@ export default function AdminOrders() {
             </div>
           </div>
 
-          {/* PAYMENT VERIFICATION */}
           <div className="mt-5 border-t border-white/10 pt-4">
             <h3 className="font-semibold">Payment Verification</h3>
 
@@ -425,7 +422,6 @@ export default function AdminOrders() {
             )}
           </div>
 
-          {/* ORDER STATUS */}
           <div className="mt-5 border-t border-white/10 pt-4">
             <label
               htmlFor={`status-${order._id}`}

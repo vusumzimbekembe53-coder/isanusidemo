@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import API_URL from "../config/api";
 
 function ConfirmSubscription() {
   const [searchParams] = useSearchParams();
@@ -21,8 +22,7 @@ function ConfirmSubscription() {
       }
 
       try {
-        const API_URL =
-          import.meta.env.VITE_API_URL || "http://localhost:4000";
+        
 
         const response = await fetch(
           `${API_URL}/api/subscribers/confirm`,

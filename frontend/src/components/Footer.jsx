@@ -1,5 +1,7 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import API_URL from "../config/api";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -21,18 +23,12 @@ function Footer() {
     try {
       setLoading(true);
 
-      const API_URL =
-        import.meta.env.VITE_API_URL || "http://localhost:4000";
-
       const response = await fetch(`${API_URL}/api/subscribers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          consent,
-        }),
+        body: JSON.stringify({ email, consent }),
       });
 
       const data = await response.json();
@@ -53,8 +49,6 @@ function Footer() {
 
   return (
     <footer className="bg-black px-6 pb-8 pt-16 text-white">
-
-      {/* Newsletter */}
       <div className="mx-auto mb-16 max-w-7xl rounded-2xl border border-white/10 bg-[#121212] p-8 md:p-12">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-black uppercase tracking-[0.3em] text-[#FF6B00]">
@@ -118,8 +112,6 @@ function Footer() {
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-12 sm:grid-cols-2 lg:grid-cols-4">
-
-        {/* Brand */}
         <div>
           <Link to="/" className="text-3xl font-black tracking-tight">
             ISANUSI<span className="text-[#FF6B00]">.</span>
@@ -135,7 +127,6 @@ function Footer() {
           </p>
         </div>
 
-        {/* Navigation */}
         <div>
           <h3 className="text-sm font-black uppercase tracking-widest text-[#FF6B00]">
             Explore
@@ -150,7 +141,6 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Contact */}
         <div>
           <h3 className="text-sm font-black uppercase tracking-widest text-[#FF6B00]">
             Get in Touch
@@ -159,10 +149,7 @@ function Footer() {
           <ul className="mt-5 space-y-4 text-sm text-white/60">
             <li>
               <span className="block text-white">Email</span>
-              <a
-                href="mailto:isanusiclothing24@gmail.com"
-                className="break-all hover:text-white"
-              >
+              <a href="mailto:isanusiclothing24@gmail.com" className="break-all hover:text-white">
                 isanusiclothing24@gmail.com
               </a>
             </li>
@@ -181,7 +168,6 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Socials */}
         <div>
           <h3 className="text-sm font-black uppercase tracking-widest text-[#FF6B00]">
             Connect With Us

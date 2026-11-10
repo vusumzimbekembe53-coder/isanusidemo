@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import API_URL from "../config/api";
 
 const FREE_DELIVERY_AREAS = [
   "devland",
@@ -100,7 +101,7 @@ function Checkout() {
 
       try {
         const response = await fetch(
-          "http://localhost:4000/api/auth/me",
+          `${API_URL}/api/auth/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -216,7 +217,7 @@ function Checkout() {
 
       // Create EFT order. The backend calculates the final delivery fee.
       const response = await fetch(
-        "http://localhost:4000/api/orders",
+        `${API_URL}/api/orders`,
         {
           method: "POST",
           headers: {

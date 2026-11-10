@@ -25,6 +25,12 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "ISANUSI API is running",
+  });
+});
+
 // API routes
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);

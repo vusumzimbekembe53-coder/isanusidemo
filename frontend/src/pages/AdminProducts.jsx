@@ -1,7 +1,7 @@
-
 import { useEffect, useState } from "react";
+import API_URL from "../config/api";
 
-const API_URL = "http://localhost:4000/api/products";
+const PRODUCTS_API = `${API_URL}/api/products`;
 const MAX_IMAGES = 5;
 
 export default function AdminProducts() {
@@ -27,7 +27,6 @@ export default function AdminProducts() {
 
   const [form, setForm] = useState(emptyForm);
 
-  // Create temporary previews for newly selected images
   useEffect(() => {
     const previews = selectedFiles.map((file) =>
       URL.createObjectURL(file)
@@ -44,7 +43,7 @@ export default function AdminProducts() {
     setLoading(true);
 
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(PRODUCTS_API);
       const data = await response.json();
 
       if (!response.ok) {
@@ -164,7 +163,7 @@ export default function AdminProducts() {
       imageData.append("images", file);
     });
 
-    const response = await fetch(`${API_URL}/upload-images`, {
+    const response = await fetch(`${PRODUCTS_API}/upload-images`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -200,7 +199,6 @@ export default function AdminProducts() {
     setUploading(true);
 
     try {
-      // Upload images first, then save their URLs with the product
       const uploadedImages = await uploadSelectedImages(token);
 
       const payload = {
@@ -219,7 +217,7 @@ export default function AdminProducts() {
       };
 
       const response = await fetch(
-        editingId ? `${API_URL}/${editingId}` : API_URL,
+        editingId ? `${PRODUCTS_API}/${editingId}` : PRODUCTS_API,
         {
           method: editingId ? "PUT" : "POST",
           headers: {
@@ -236,13 +234,13 @@ export default function AdminProducts() {
         throw new Error(data.message || "Could not save product");
       }
 
-     const successMessage = editingId
-  ? "Product updated successfully."
-  : "Product added successfully.";
+      const successMessage = editingId
+        ? "Product updated successfully."
+        : "Product added successfully.";
 
-resetForm();
-setMessage(successMessage);
-await loadProducts();
+      resetForm();
+      setMessage(successMessage);
+      await loadProducts();
     } catch (error) {
       setMessage(error.message);
     } finally {
@@ -263,7 +261,7 @@ await loadProducts();
     }
 
     try {
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${PRODUCTS_API}/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -405,7 +403,6 @@ await loadProducts();
             Featured product
           </label>
 
-          {/* Product image uploader */}
           <div className="space-y-3 md:col-span-2">
             <label className="block font-semibold">
               Product Images

@@ -1,8 +1,11 @@
-const API_URL = "http://localhost:4000/api/products";
+
+import API_URL from "../config/api";
+
+const PRODUCTS_API = `${API_URL}/api/products`;
 
 export async function getProducts() {
-  const response = await fetch(API_URL);
-  
+  const response = await fetch(PRODUCTS_API);
+
   if (!response.ok) {
     throw new Error("Failed to fetch products");
   }
@@ -12,7 +15,7 @@ export async function getProducts() {
 }
 
 export async function getProductById(id) {
-  const response = await fetch(`${API_URL}/${id}`);
+  const response = await fetch(`${PRODUCTS_API}/${id}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch product");

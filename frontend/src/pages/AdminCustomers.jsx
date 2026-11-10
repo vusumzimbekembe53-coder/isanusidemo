@@ -1,4 +1,6 @@
+
 import { useEffect, useState } from "react";
+import API_URL from "../config/api";
 
 export default function AdminCustomers() {
   const [customers, setCustomers] = useState([]);
@@ -14,14 +16,11 @@ export default function AdminCustomers() {
   useEffect(() => {
     async function fetchCustomers() {
       try {
-        const response = await fetch(
-          "http://localhost:4000/api/auth/users",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/auth/users`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const data = await response.json();
 
@@ -43,11 +42,12 @@ export default function AdminCustomers() {
   async function viewOrders(customer) {
     setSelectedCustomer(customer);
     setOrders([]);
+    setError("");
     setOrdersLoading(true);
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/auth/users/${customer._id}/orders`,
+        `${API_URL}/api/auth/users/${customer._id}/orders`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

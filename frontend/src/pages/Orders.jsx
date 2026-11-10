@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import API_URL from "../config/api";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -20,7 +21,7 @@ function Orders() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/orders/my-orders",
+       `${API_URL}/api/orders/my-orders`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -110,7 +111,7 @@ function Orders() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/orders/${orderId}/proof-of-payment`,
+        `${API_URL}/api/orders/${orderId}/proof-of-payment`,
         {
           method: "POST",
           headers: {

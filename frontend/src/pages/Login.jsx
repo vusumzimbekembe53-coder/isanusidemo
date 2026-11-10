@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import API_URL from "../config/api";
 
 function Login() {
   const [form, setForm] = useState({
@@ -30,7 +31,7 @@ const successMessage = location.state?.message;
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/auth/login",
+        `${API_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {

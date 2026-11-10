@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../config/api";
 
 function Account() {
   const [customer, setCustomer] = useState(null);
@@ -19,14 +20,11 @@ function Account() {
       }
 
       try {
-        const response = await fetch(
-          "http://localhost:4000/api/auth/me",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const data = await response.json();
 
@@ -137,20 +135,19 @@ function Account() {
                   View your purchases and order status.
                 </p>
               </Link>
-<Link
-  to="/profile"
-  className="rounded-xl border border-white/10 p-6 transition hover:border-[#FF6B00]"
->
-  <h2 className="text-xl font-black uppercase">
-    My Profile
-  </h2>
 
-  <p className="mt-2 text-sm text-white/50">
-    Update your personal details, contact information and delivery address.
-  </p>
-</Link>
+              <Link
+                to="/profile"
+                className="rounded-xl border border-white/10 p-6 transition hover:border-[#FF6B00]"
+              >
+                <h2 className="text-xl font-black uppercase">
+                  My Profile
+                </h2>
 
-
+                <p className="mt-2 text-sm text-white/50">
+                  Update your personal details, contact information and delivery address.
+                </p>
+              </Link>
             </div>
           </>
         )}

@@ -1,5 +1,6 @@
-
 import { useEffect, useState } from "react";
+import API_URL from "../config/api";
+
 import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
 import AdminCustomers from "./AdminCustomers";
@@ -23,7 +24,7 @@ export default function AdminDashboard() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:4000/api/orders/analytics/products",
+          `${API_URL}/api/orders/analytics/products`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,18 +51,6 @@ export default function AdminDashboard() {
     loadAnalytics();
   }, []);
 
-  const tabs = [
-    "overview",
-    "products",
-    "orders",
-    "customers",
-    "subscribers",
-    "marketing",
-    "email-drafter",
-    "product-generator",
-    "mockup-creator",
-  ];
-
   return (
     <div className="min-h-screen bg-[#121212] text-white">
       <header className="border-b border-white/10 m-10">
@@ -74,7 +63,16 @@ export default function AdminDashboard() {
       </header>
 
       <nav className="flex flex-wrap gap-3 p-6">
-        {tabs.map((tab) => (
+        {[
+          "overview",
+          "products",
+          "orders",
+          "customers",
+          "subscribers",
+          "marketing",
+          "email-drafter",
+          "product-generator",
+        ].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -84,14 +82,14 @@ export default function AdminDashboard() {
                 : "bg-white/10 hover:bg-white/20"
             }`}
           >
-            {tab.replaceAll("-", " ")}
+            {tab}
           </button>
         ))}
       </nav>
 
       <main className="p-6">
         <h2 className="text-xl font-semibold capitalize">
-          {activeTab.replaceAll("-", " ")}
+          {activeTab}
         </h2>
 
         {activeTab === "overview" && (
@@ -137,6 +135,7 @@ export default function AdminDashboard() {
                               <p className="font-semibold">
                                 #{index + 1} {product.name}
                               </p>
+
                               <p className="text-sm text-gray-400">
                                 {product.unitsSold} sold
                               </p>
@@ -168,6 +167,7 @@ export default function AdminDashboard() {
                                 <p className="font-semibold">
                                   {product.name}
                                 </p>
+
                                 <p className="text-sm text-gray-400">
                                   {product.unitsSold} sold
                                 </p>
@@ -194,17 +194,6 @@ export default function AdminDashboard() {
         {activeTab === "marketing" && <AdminMarketing />}
         {activeTab === "email-drafter" && <AdminEmailDrafter />}
         {activeTab === "product-generator" && <AdminProductGenerator />}
-
-        {activeTab === "mockup-creator" && (
-          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-lg font-bold text-[#FF6B00]">
-              AI Mockup Creator
-            </h3>
-            <p className="mt-2 text-gray-400">
-              Your AI-powered product mockup studio will be built here.
-            </p>
-          </div>
-        )}
       </main>
     </div>
   );

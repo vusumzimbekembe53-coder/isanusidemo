@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../config/api";
 
-const API_URL = "http://localhost:4000/api/auth";
 
 const emptyAddress = {
   street: "",
@@ -44,7 +44,7 @@ function Profile() {
       }
 
       try {
-        const response = await fetch(`${API_URL}/me`, {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -112,7 +112,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${API_URL}/profile`, {
+      const response = await fetch(`${API_URL}/api/auth/change-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
